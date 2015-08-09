@@ -1,16 +1,14 @@
 //http://forum.openscad.org/staggered-honeycomb-td8242.html
 // number of rows and columns, beware that odd rows have one cell less 
 // than even rows, so the total number of cells will be about rows * (columns - 1/2) 
-rows          = 5; 
-columns       = 5; 
+rows          = 3; 
+columns       = 4; 
 
-// number of stacks 
-levels = 2; 
 lidHeight=3;
 
-walls         = 2; 
-height        = 50.5+1; 
-NominalBattDiameter = 14.4;
+walls         = 1; 
+height        = 62+1; 
+NominalBattDiameter = 33.3;
 
 HoleDiam = 0.02*NominalBattDiameter+ NominalBattDiameter;
 
@@ -21,7 +19,7 @@ imageSide= "img/radiation-15296_640.png";
 //imageSide="img/high_voltage_clip_art_16682.png";
 
 
-textSide="8 AA 12V @ 1900mA";
+textSide="10 D 12V @ 10000mA";
 //$fn = 50;
 FN=50;
 boxX= (columns*(HoleDiam+walls))+2*walls;
@@ -36,7 +34,7 @@ screwV=2;
 echo("Power pack dimensions (excluding lids h=", height, " x=", boxX, " y=", boxY);
 
 module SUB_screwM212(tolerance) {
-cylinder(r = 1.8 / 2, h = 13.2-1.2,,$fn=FN);
+cylinder(r = 1.8 / 2, h = 13.2-1.2,$fn=FN);
     translate([0, 0, -1.2]) cylinder(r = 3.8/2, h = 1.2,,$fn=FN);
 }
 
@@ -100,7 +98,7 @@ outerShell();
 screwHoles();
              translate([boxX/2,-3,height/2])rotate([90,0,0])resize([30, 30, 2])
 surface(file = imageSide, center = true, invert = true);
-        translate([boxX/7,0,height/9]) rotate([90,0,0])  linear_extrude(height = 2)text(textSide, font = "Liberation Sans", size=4);
+        translate([boxX/4+5,0,height/9]) rotate([90,0,0])  linear_extrude(height = 2)text(textSide, font = "Liberation Sans", size=4);
               
 
         } 
