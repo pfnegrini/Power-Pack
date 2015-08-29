@@ -1,30 +1,32 @@
 //http://forum.openscad.org/staggered-honeycomb-td8242.html
-// number of rows and columns, beware that odd rows have one cell less 
-// than even rows, so the total number of cells will be about rows * (columns - 1/2) 
+
+
+//Battery type settings
+lidHeight=3;
 rows          = 2; 
 columns       = 5; 
-
-
-lidHeight=3;
 
 walls         = 2; 
 height        = 50.5+1; 
 NominalBattDiameter = 14.4;
 
 HoleDiam = 0.02*NominalBattDiameter + NominalBattDiameter;
-
 connSocketHeight=3;
 
-imageSide= "img/radiation-15296_640.png";
+//Choose an image for the side
+
+//imageSide= "img/radiation-15296_640.png";
 //imageSide= "img/Highvoltagesignb.png";
-//imageSide="img/high_voltage_clip_art_16682.png";
-textSide="10 D 12V @ 10000mA";
+imageSide="img/high_voltage_clip_art_16682.png";
 
+textSide="8 AA 12V @ 1900mA";
+textLeft=15;
+
+//Rendering parameters
 //$fn = 50;
-//FN=50;
+FN=50;
 
-edgeRounding=2; //Useful to claculate size afte Minkowski transformation
-//CHECK but sizes should consider Minkowski radius, if it is the case we should add it to boxX
+edgeRounding=2; //Useful to calculate size afer Minkowski transformation
 boxX= (columns*(HoleDiam+walls))+2*walls;
 boxY= ((rows-1) * (HoleDiam+walls)*(sqrt(3) / 2)+(HoleDiam+walls)+2*walls);
 
@@ -34,7 +36,7 @@ screwTolerance = 0.25;
 
 //Lids
 screwH=3;
-screwV=1;//ScrewV is always -1 from the variable... have a look at why...
+screwV=1;//ScrewV is always -1 from the variable. NEED to check why
 anchoringX=10;
 anchoringY=9;
 
@@ -111,7 +113,7 @@ translate([0,0,0])SUB_outerShell(height);
 screwHoles();
              translate([boxX/2,-3,height/2])rotate([90,0,0])resize([30, 30, 2])
 surface(file = imageSide, center = true, invert = true);
-        translate([boxX/4+5,0,height/9]) rotate([90,0,0])  linear_extrude(height = 2)text(textSide, font = "Liberation Sans", size=4);
+        translate([textLeft,0,height/9]) rotate([90,0,0])  linear_extrude(height = 2)text(textSide, font = "Liberation Sans", size=4);
               
 
         } 
@@ -173,7 +175,7 @@ module screwHoles(){
 
 module topLid(){
 difference()
-{translate([0,0,-lidHeight/2])outerShell(lidHeight);
+{translate([0,0,-lidHeight/2])SUB_outerShell(lidHeight);
 translate([0,0,-0.4])screwHoles();
 }
 }
@@ -181,9 +183,9 @@ translate([0,0,-0.4])screwHoles();
 
 module bottomLid(){
 
-translate([-anchoringX/2,0,0])  SUB_anchor(anchoringX,anchoringY);
+translate([-anchoringX/2,0,0])  rotate([0,180,0])SUB_anchor(anchoringX,anchoringY);
 
-translate([+boxX+anchoringX/2+edgeRounding,0,0])  rotate([0,0,180])SUB_anchor(anchoringX,anchoringY);
+translate([+boxX+anchoringX/2+edgeRounding,0,0])  rotate([0,180,0])SUB_anchor(anchoringX,anchoringY);
 translate([edgeRounding,-boxY/2,0])topLid();
 }
 
@@ -198,9 +200,9 @@ module SUB_anchor(anchoringX, anchoringY){
 }
 
 //SUB_anchor(anchoringX,anchoringY);
-//bottomLid();
-//translate([edgeRounding,boxY+10,0])topLid();
+bottomLid();
+translate([edgeRounding,boxY+10,0])topLid();
 //batteryPack(); 
 //outerShell(boxY);
 //screwHoles();
-SUB_screwM(2,10,0.2);
+//SUB_screwM(2,10,0.2);
