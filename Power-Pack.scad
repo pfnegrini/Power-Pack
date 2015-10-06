@@ -3,12 +3,13 @@
 
 //Battery type settings
 lidHeight=3;
-rows          = 2; 
-columns       = 5; 
+rows          = 3; 
+columns       = 4; 
 
 walls         = 2; 
-height        = 50.5+1; 
-NominalBattDiameter = 14.4;
+height        = 61.5+1.5; 
+NominalBattDiameter = 32.5;
+// AA 14.4;
 
 HoleDiam = 0.02*NominalBattDiameter + NominalBattDiameter;
 connSocketHeight=3;
@@ -17,14 +18,14 @@ connSocketHeight=3;
 
 //imageSide= "img/radiation-15296_640.png";
 //imageSide= "img/Highvoltagesignb.png";
-imageSide="img/high_voltage_clip_art_16682.png";
+imageSide="img/Highvoltagesignb.png";
 
-textSide="8 AA 12V @ 1900mA";
-textLeft=15;
+textSide="10 D 12V @ 10 000mA";
+textLeft=45;
 
 //Rendering parameters
 //$fn = 50;
-FN=50;
+FN=150;
 
 edgeRounding=2; //Useful to calculate size afer Minkowski transformation
 boxX= (columns*(HoleDiam+walls))+2*walls;
@@ -35,8 +36,8 @@ screwLenght = 10;
 screwTolerance = 0.25;
 
 //Lids
-screwH=3;
-screwV=1;//ScrewV is always -1 from the variable. NEED to check why
+screwH=6;
+screwV=3;
 anchoringX=10;
 anchoringY=9;
 
@@ -72,21 +73,21 @@ module SUB_honeycomb(rows, columns, HoleDiam, walls, height) {
 
 
 module connectionHoriz(){
-translate([(HoleDiam+walls)/2,0,1.5])cube([HoleDiam+walls, 4,connSocketHeight], center=true);
+translate([(HoleDiam+walls)/2,0,1.5])cube([HoleDiam+walls, HoleDiam/6,connSocketHeight], center=true);
 }
 
 module connectionCross1(){
-    rotate([0,0,55])translate([10,0,1.5])cube([HoleDiam+walls, 3,connSocketHeight], center=true);
+    rotate([0,0,55])translate([10,0,1.5])cube([HoleDiam+walls, HoleDiam/6,connSocketHeight], center=true);
 }
 
 module connectionCross2(){
-    rotate([0,0,-55])translate([5,0,1.5])cube([HoleDiam+walls, 3,connSocketHeight], center=true);
+    rotate([0,0,-55])translate([5,0,1.5])cube([HoleDiam+walls, HoleDiam/6,connSocketHeight], center=true);
 }
 
 module powerCableOut() {
     
-    translate([NominalBattDiameter/2,NominalBattDiameter,height])rotate([0,0,-55])cube([HoleDiam+walls, 3,connSocketHeight], center=true);
-    translate([NominalBattDiameter/2,3/2*NominalBattDiameter,height])rotate([0,0,0])cube([HoleDiam+3*walls, 3,connSocketHeight], center=true);
+    translate([NominalBattDiameter/2,NominalBattDiameter,height])rotate([0,0,-55])cube([HoleDiam+3*walls, HoleDiam/6,connSocketHeight], center=true);
+    translate([NominalBattDiameter/2,3/2*NominalBattDiameter,height])rotate([0,0,0])cube([HoleDiam+3*walls, HoleDiam/6,connSocketHeight], center=true);
     
 }
 
@@ -200,9 +201,9 @@ module SUB_anchor(anchoringX, anchoringY){
 }
 
 //SUB_anchor(anchoringX,anchoringY);
-bottomLid();
-translate([edgeRounding,boxY+10,0])topLid();
-//batteryPack(); 
+//bottomLid();
+//translate([edgeRounding,boxY+10,0])topLid();
+batteryPack(); 
 //outerShell(boxY);
 //screwHoles();
 //SUB_screwM(2,10,0.2);
