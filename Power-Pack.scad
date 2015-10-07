@@ -11,7 +11,7 @@ height        = 61.5+1.5;
 NominalBattDiameter = 32.5;
 // AA 14.4;
 
-HoleDiam = 0.02*NominalBattDiameter + NominalBattDiameter;
+HoleDiam = 0.015*NominalBattDiameter + NominalBattDiameter;
 connSocketHeight=3;
 
 //Choose an image for the side
@@ -28,8 +28,8 @@ textLeft=45;
 FN=150;
 
 edgeRounding=2; //Useful to calculate size afer Minkowski transformation
-boxX= (columns*(HoleDiam+walls))+2*walls;
-boxY= ((rows-1) * (HoleDiam+walls)*(sqrt(3) / 2)+(HoleDiam+walls)+2*walls);
+boxX= (columns*(HoleDiam+walls))+2*walls+edgeRounding;
+boxY= ((rows-1) * (HoleDiam+walls)*(sqrt(3) / 2)+(HoleDiam+walls)+4*walls);
 
 screwDiam = 3;
 screwLenght = 10;
