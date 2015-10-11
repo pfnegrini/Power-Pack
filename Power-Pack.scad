@@ -11,7 +11,7 @@ height        = 61.5+1.5;
 NominalBattDiameter = 32.5;
 // AA 14.4;
 
-HoleDiam = 0.015*NominalBattDiameter + NominalBattDiameter;
+HoleDiam = 0.018*NominalBattDiameter + NominalBattDiameter;
 connSocketHeight=3;
 
 //Choose an image for the side
