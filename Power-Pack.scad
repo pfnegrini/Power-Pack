@@ -13,7 +13,11 @@ NominalBattDiameter = 14.4;
 // AA 14.4;
 // D 32.5
 
+<<<<<<< HEAD
 HoleDiam = 0.02*NominalBattDiameter + NominalBattDiameter;
+=======
+HoleDiam = 0.018*NominalBattDiameter + NominalBattDiameter;
+>>>>>>> origin/master
 connSocketHeight=3;
 
 //Choose an image for the side
